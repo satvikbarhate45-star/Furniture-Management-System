@@ -1,0 +1,164 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us | Furniture Management System</title>
+
+    <style>
+        /* 🌿 GLOBAL */
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: #f5f5f5; /* white base */
+        }
+
+        /* 🌿 HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #2b1b14; /* dark brown */
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            color: #d2b48c; /* light brown */
+        }
+
+        /* 🌿 HERO SECTION */
+        .hero {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("{% static 'ss21.jpg' %}") no-repeat center center;
+            background-size: cover;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 20px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        }
+
+        /* 🌿 CONTENT SECTION */
+        .section {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(43,27,20,0.2);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .section h2 {
+            color: #2b1b14; /* dark brown */
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .info strong {
+            color: #5a3e2b; /* brown */
+        }
+
+        /* 🌿 FOOTER */
+        .footer {
+            background: #2b1b14;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* 🌿 ANIMATION */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 🌿 RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            .section { padding: 20px; margin: 30px auto; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { height: 200px; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 16px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'header.html' %}
+
+    <!-- 🌿 HERO SECTION -->
+    <div class="hero">
+        <div>
+        </div>
+    </div>
+
+    <!-- 🌿 NURSERY INFORMATION -->
+    <div class="section">
+        <h2>About Furniture Management System</h2>
+        <div class="info">
+            <p><strong>Furniture Management System</strong> is a modern and secure platform for managing furniture collections, showroom inventory, and customer requirements efficiently.</p>
+
+            <p>Our system helps in organizing furniture products, tracking availability, and providing smooth management for stores with reliable data handling and user-friendly access.</p>
+
+            <h2>Contact Information</h2>
+
+            <p><strong>Address:</strong> 123 Furniture Hub, Maharashtra, India</p>
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Email:</strong> info@furniturems.com</p>
+            <p><strong>Working Hours:</strong> Monday - Saturday: 9:00 AM - 6:00 PM</p>
+        </div>
+    </div>
+
+    <!-- 🌿 FOOTER -->
+    <div class="footer">
+        <p>© 2026 Furniture Management System | All Rights Reserved 🪑</p>
+    </div>
+
+</body>
+</html>

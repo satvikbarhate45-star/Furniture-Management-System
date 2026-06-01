@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Furniture Details</title>
+
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5f5f5;
+            margin: 0;
+        }
+
+        /* 🌿 Container */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(43,27,20,0.25);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        /* 🌿 Image */
+        img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        /* 🌿 Title */
+        h1 {
+            color: #2b1b14; /* dark brown */
+            margin-top: 15px;
+        }
+
+        /* 🌿 Text */
+        p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        /* 🌿 Price */
+        .price {
+            font-size: 24px;
+            color: #5a3e2b; /* brown */
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* 🌿 Buttons */
+        .btn-buy {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: #2b1b14; /* dark brown */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            background: #5a3e2b;
+            transform: scale(1.05);
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 15px;
+            margin-left: 10px;
+            padding: 12px 25px;
+            background: #8b6f47; /* light brown */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            background: #6b4f36;
+            transform: scale(1.05);
+        }
+
+        /* 🌿 Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 🌿 Responsive */
+        @media(max-width: 600px) {
+            .container {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    {% if plant.image %}
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    {% endif %}
+
+    <h1>{{ plant.name }}</h1>
+
+    <p><b>Type:</b> {{ plant.plant_type }}</p>
+    <p><b>Growth:</b> {{ plant.growth }}</p>
+    <p><b>Quality:</b> {{ plant.quality }}</p>
+    <p><b>Description:</b> {{ plant.info }}</p>
+
+    <p class="price">₹ {{ plant.price }}</p>
+
+    <a href="{% url 'buy_plant' plant.id %}" class="btn-buy">🛒 Buy Now</a>
+
+    <a href="{% url 'user_view_home_plants' %}" class="btn-back">⬅ Back to Furniture</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* 🪑 FORM BOX */
+    .container {
+        width: 400px;
+        margin: 50px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(43,29,14,0.25);
+        animation: fadeInUp 1s ease-in-out;
+        border-top: 4px solid #2b1d0e;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2b1d0e;
+        font-family: 'Playfair Display', serif;
+    }
+
+    /* 🪑 INPUT */
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border: 1px solid #2b1d0e;
+        box-shadow: 0 0 5px rgba(43,29,14,0.3);
+    }
+
+    /* 🪑 BUTTON */
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #2b1d0e; /* brown */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #000000; /* black */
+        transform: scale(1.05);
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        color: #2b1d0e;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back:hover {
+        color: #000000;
+    }
+
+    /* 🪑 ANIMATION */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container">
+    <h2>🪑 Add Furniture</h2>
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            alert("{{ message }}");
+        </script>
+    {% endfor %}
+{% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="text" name="plant_id" placeholder="Furniture ID" required>
+
+        <input type="text" name="name" placeholder="Furniture Name" required>
+
+        <!-- 🪑 TYPE FIELD -->
+        <select name="plant_type" required>
+            <option value="">Select Furniture Type</option>
+            <option>Chair</option>
+            <option>Sofa Set</option>
+            <option>Bed</option>
+            <option>Dining Table</option>
+            <option>Office Table</option>
+            <option>Study Table</option>
+            <option>Bookshelf</option>
+            <option>TV Unit</option>
+            <option>Shoe Rack</option>
+            <option>Cabinet</option>
+        </select>
+
+        <textarea name="info" placeholder="Furniture Description"></textarea>
+
+        <input type="number" name="price" placeholder="Price" required>
+
+        <input type="file" name="image" required>
+
+        <!-- 🪑 MATERIAL / QUALITY -->
+        <select name="growth" required>
+            <option value="">Select Material / Type</option>
+            <option>Wood</option>
+            <option>Metal</option>
+            <option>Plastic</option>
+            <option>Leather</option>
+            <option>Engineered Wood</option>
+        </select>
+
+        <input type="number" name="quantity" placeholder="Quantity" required>
+
+        <select name="quality">
+            <option>Premium</option>
+            <option>Standard</option>
+            <option>Luxury</option>
+            <option>Imported</option>
+            <option>Handmade</option>
+        </select>
+
+        <button type="submit">Add Furniture</button>
+    </form>
+
+    <a href="{% url 'admin_page' %}" class="back">← Back to Dashboard</a>
+</div>
+
+{% endblock %}

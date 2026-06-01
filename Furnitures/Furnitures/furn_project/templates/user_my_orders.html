@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders | Furniture Management System</title>
+
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5f5f5; /* white base */
+            margin: 0;
+            padding-top: 80px;
+        }
+
+        /* ================= CONTAINER ================= */
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px 0;
+        }
+
+        h1 {
+            color: #2b1b14; /* dark brown */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        /* ================= TABLE ================= */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 12px rgba(43,27,20,0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #2b1b14; /* dark brown */
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background: #f3e6d8; /* light brown hover */
+            transform: scale(1.01);
+            transition: 0.3s;
+        }
+
+        td img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.3s;
+        }
+
+        td img:hover {
+            transform: scale(1.1);
+        }
+
+        .status-pending {
+            background: #b08968; /* brown */
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .status-delivered {
+            background: #2b1b14;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .status-cancelled {
+            background: #5a3e2b;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        button {
+            padding: 6px 12px;
+            background: #2b1b14;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #5a3e2b;
+        }
+
+        /* ================= EMPTY STATE ================= */
+        .empty-message {
+            text-align: center;
+            font-size: 20px;
+            color: #2b1b14;
+            margin-top: 50px;
+        }
+
+        /* ================= ANIMATIONS ================= */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media(max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                display: none;
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            td img {
+                margin-right: 10px;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            td:last-child {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+{% include 'header.html' %}
+
+<div class="container">
+    <h1 style="text-align: center; color: #a76a50;">🪑 My Orders</h1>
+
+    {% if bookings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Furniture</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td data-label="#"> {{ forloop.counter }} </td>
+                    <td data-label="Furniture"> {{ booking.plant.name }} </td>
+                    <td data-label="Image">
+                        <img src="{{ booking.plant.image.url }}" alt="{{ booking.plant.name }}">
+                    </td>
+                    <td data-label="Quantity"> {{ booking.quantity }} </td>
+                    <td data-label="Delivery Date"> {{ booking.delivery_date|date:"D, d M Y" }} </td>
+                    <td data-label="Status">
+                        <span class="status-{{ booking.status }}">{{ booking.status|title }}</span>
+                    </td>
+                    <td data-label="Payment"> {{ booking.pay_method|title }} </td>
+                    <td data-label="Action">
+                        {% if booking.status == "pending" %}
+                        <form method="POST" action="{% url 'cancel_booking' booking.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Cancel</button>
+                        </form>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <div class="empty-message">
+            You have no orders yet.
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Booking</title>
+</head>
+<body>
+    <h2>Confirm Delete</h2>
+    <p>Are you sure you want to delete booking for <strong>{{ booking.plant.name }}</strong> by <strong>{{ booking.user.first_name }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'admin_manage_orders' %}">Cancel</a>
+    </form>
+</body>
+</html>

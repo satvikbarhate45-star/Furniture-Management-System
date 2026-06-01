@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Placed | Furniture Management System</title>
+
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(43,27,20,0.25);
+            text-align: center;
+            animation: popup 0.6s ease;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #2b1b14;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #444;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #2b1b14;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            background: #5a3e2b;
+            transform: scale(1.05);
+        }
+
+        /* 🎉 POPUP EFFECT */
+        @keyframes popup {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 💥 CONFETTI */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: 50%;
+            left: 50%;
+            opacity: 0.8;
+            animation: explode 1.2s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0,0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+    function createConfetti() {
+        for (let i = 0; i < 25; i++) {
+            let confetti = document.createElement("div");
+            confetti.className = "confetti";
+
+            let x = (Math.random() - 0.5) * 800 + "px";
+            let y = (Math.random() - 0.5) * 800 + "px";
+
+            confetti.style.setProperty('--x', x);
+            confetti.style.setProperty('--y', y);
+
+            confetti.style.background = ["#2b1b14","#5a3e2b","#8b6f47","#000000","#ffffff"]
+                [Math.floor(Math.random()*5)];
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 1200);
+        }
+    }
+
+    window.onload = function() {
+        let interval = setInterval(createConfetti, 300);
+
+        setTimeout(() => {
+            clearInterval(interval);
+        }, 10000); // 10 seconds
+    }
+</script>
+
+<div class="container">
+    <h1>🎉 Order Placed Successfully!</h1>
+    <p>Thank you, {{ booking.first_name }} {{ booking.last_name }}.</p>
+    <p>Your order for <strong>{{ booking.plant.name }}</strong> has been placed.</p>
+    <p>Delivery Date: <strong>{{ booking.delivery_date|date:"D, d M Y" }}</strong></p>
+    <p>Payment Method: <strong>{{ booking.pay_method|title }}</strong></p>
+    <a href="{% url 'home' %}">Back to Home</a>
+</div>
+
+</body>
+</html>

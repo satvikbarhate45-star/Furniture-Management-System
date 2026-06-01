@@ -1,0 +1,6 @@
+<h2>🎉 Your order has been placed!</h2>
+<p>Booking ID: {{ booking.id }}</p>
+<p>Plant: {{ booking.plant.name }}</p>
+<p>Delivery Date: {{ booking.delivery_date|date:"d M Y" }}</p>
+<p>Status: {{ booking.status }}</p>
+<a href="{% url 'us_view_plants' %}">Back to Plants</a>

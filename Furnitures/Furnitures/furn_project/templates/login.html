@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial;
+            background: linear-gradient(to right, #ffffff, #f3e5d8);
+        }
+
+        .box {
+            width: 350px;
+            margin: 100px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(43,29,14,0.25);
+            animation: fadeIn 1s ease-in-out;
+            border-top: 5px solid #2b1d0e;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2b1d0e; /* dark brown */
+            font-family: 'Playfair Display', serif;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        input:focus {
+            border: 1px solid #2b1d0e;
+            box-shadow: 0 0 5px rgba(43,29,14,0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #2b1d0e; /* brown */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #000000; /* black */
+            transform: scale(1.05);
+        }
+
+        a {
+            color: #2b1d0e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #000000;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Login 🪑</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+
+        <button type="submit">Login</button>
+    </form>
+
+    {% if error %}
+    <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <p>Don't have account? <a href="/register/">Register</a></p>
+</div>
+
+</body>
+</html>

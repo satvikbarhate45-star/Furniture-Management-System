@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', Arial;
+        display: flex;
+        background: linear-gradient(to right, #ffffff, #f3e5d8);
+    }
+
+    /* 🪑 SIDEBAR */
+    .sidebar {
+        width: 230px;
+        background: #1a1a1a;   /* black */
+        color: white;
+        height: 100vh;
+        position: fixed;
+        animation: slideLeft 0.8s ease-in-out;
+    }
+
+    .sidebar h2 {
+        text-align: center;
+        padding: 15px;
+        border-bottom: 1px solid #2b1d0e;
+        color: #f3e5d8;
+    }
+
+    .sidebar a {
+        display: block;
+        color: white;
+        padding: 12px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        background: #2b1d0e; /* brown hover */
+        transform: translateX(5px);
+    }
+
+    /* 🪑 CONTENT */
+    .content {
+        margin-left: 230px;
+        width: 100%;
+        padding: 20px;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+        color: #2b1d0e; /* brown */
+        animation: fadeInUp 1s ease-in-out;
+        font-family: 'Playfair Display', serif;
+    }
+
+    /* 🪑 CARDS */
+    .cards {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        flex: 1;
+        min-width: 200px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(43,29,14,0.25);
+        animation: fadeInUp 1s ease-in-out;
+        transition: 0.3s;
+        border-top: 4px solid #2b1d0e;
+    }
+
+    .card:hover {
+        transform: translateY(-5px) scale(1.03);
+    }
+
+    /* 🪑 TABLE */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(43,29,14,0.25);
+        animation: fadeInUp 1s ease-in-out;
+    }
+
+    th {
+        background: #2b1d0e; /* brown */
+        color: white;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    tr:hover {
+        background: #f3e5d8;
+        transition: 0.3s;
+    }
+
+    /* 🪑 BUTTON */
+    button {
+        padding: 6px 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .edit {
+        background: #2b1d0e;
+    }
+
+    .delete {
+        background: #000000;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    /* 🪑 ANIMATIONS */
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideLeft {
+        from {
+            transform: translateX(-100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🪑 SIDEBAR -->
+<div class="sidebar">
+    <h2>🪑 Furniture</h2>
+    <a href="#">Dashboard</a>
+    <a href="/add-plant/">Add Furniture</a>
+    <a href="{% url 'view_all_plants' %}">View Furniture</a>
+    <a href="{% url 'admin_manage_orders' %}">Manage Orders</a>
+    <a href="/">Logout</a>
+</div>
+
+<!-- 🪑 CONTENT -->
+<div class="content">
+
+    <!-- 🪑 CARDS -->
+    <div class="cards">
+        <div class="card">
+            <h3>Total Furniture</h3>
+            <p>{{ plants|length }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Orders</h3>
+            <p>{{ bookings|length }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Users</h3>
+            <p>{{ users|length }}</p>
+        </div>
+    </div>
+
+<!-- 🪑 PRODUCTS -->
+<h2>🪑 Furniture Items</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+
+    {% for p in plants %}
+    <tr>
+        <td>{{ p.plant_id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.growth }}</td>
+        <td>{{ p.quantity }}</td>
+        <td>
+            <a href="{% url 'view_plant' p.id %}">
+                <button style="background: #2b1d0e;">View</button>
+            </a>
+
+            <a href="{% url 'edit_plant' p.id %}">
+                <button class="edit">Edit</button>
+            </a>
+
+            <a href="{% url 'delete_plant' p.id %}">
+                <button class="delete">Delete</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- 🪑 ORDERS -->
+<h2>🪑 Order Management</h2>
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Contact</th>
+            <th>Item</th>
+            <th>Order Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in bookings %}
+        <tr>
+            <td>{{ b.user.first_name }} {{ b.user.last_name }}</td>
+            <td>{{ b.contact }}</td>
+            <td>{{ b.plant.name }}</td>
+            <td>
+                {% if b.status == "pending" %}
+                    <span style="color: #b8860b; font-weight:bold;">Pending</span>
+                {% elif b.status == "cancelled" %}
+                    <span style="color: black; font-weight:bold;">Cancelled</span>
+                {% elif b.status == "delivered" %}
+                    <span style="color: #2b1d0e; font-weight:bold;">Delivered</span>
+                {% else %}
+                    {{ b.status|title }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- 🪑 USERS -->
+<h2>👤 User Management</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.first_name }}</td>
+        <td>{{ u.last_name }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.email }}</td>
+
+        <td>
+            {% if u.is_active %}
+                <span style="color: green; font-weight:bold;">Active</span>
+            {% else %}
+                <span style="color: red; font-weight:bold;">Inactive</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+</body>
+</html>

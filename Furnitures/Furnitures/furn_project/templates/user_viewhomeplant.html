@@ -1,0 +1,232 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Plants | Furniture Store</title>
+
+    <style>
+
+        /* 🌑 GLOBAL */
+        body {
+            margin: 0;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: #111;
+            color: #fff;
+        }
+
+        /* 🌿 HEADER (NO STRUCTURE CHANGE) */
+        .header {
+            background: #1c1c1c;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #6b3e26;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #a9745b;
+        }
+
+        .nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            color: #a9745b;
+        }
+
+        /* 🌟 ONLY CONTENT ANIMATION WRAPPER */
+        .animated-content {
+            animation: pageLoad 0.8s ease-in-out;
+        }
+
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 🌿 HERO */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to right, #1a1a1a, #2b2b2b);
+            border-bottom: 2px solid #6b3e26;
+        }
+
+        .hero h1 {
+            color: #a9745b;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        /* 🌿 CONTAINER */
+        .container {
+            padding: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* 🌟 CARD (FURNITURE STYLE) */
+        .card {
+            background: #1c1c1c;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            overflow: hidden;
+            transition: 0.4s;
+            border: 1px solid #6b3e26;
+            animation: fadeUp 0.6s ease-in-out;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #a9745b;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            color: #a9745b;
+            margin: 0;
+        }
+
+        .card-content p {
+            margin: 5px 0;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #d4a373;
+            margin-top: 10px;
+        }
+
+        /* 🌿 BUTTON */
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #6b3e26;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #a9745b;
+            transform: scale(1.05);
+        }
+
+        /* 🌿 FOOTER */
+        .footer {
+            text-align: center;
+            background: #1c1c1c;
+            color: #a9745b;
+            padding: 15px;
+            margin-top: 40px;
+            border-top: 2px solid #6b3e26;
+        }
+
+        @media(max-width: 600px) {
+            .hero h1 { font-size: 28px; }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 🌟 ONLY THIS PART ANIMATES -->
+    <div class="animated-content">
+
+        <!-- 🌿 HERO -->
+        <div class="hero">
+            <h1>🪑 Explore Furniture Collection</h1>
+            <p>Choose premium furniture for your dream home</p>
+        </div>
+
+        <!-- 🌿 PRODUCT GRID -->
+        <div class="container">
+            <div class="grid">
+
+                {% for plant in plants %}
+                <div class="card">
+
+                    {% if plant.image %}
+                        <!-- ❗ IMAGE PATH NOT CHANGED -->
+                        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                    {% else %}
+                        <img src="{% static 'default-plant.jpg' %}" alt="Furniture">
+                    {% endif %}
+
+                    <div class="card-content">
+                        <h3>{{ plant.name }}</h3>
+                        <p>Type: {{ plant.plant_type }}</p>
+                        <p>Growth: {{ plant.growth }}</p>
+                        <p>Quality: {{ plant.quality }}</p>
+
+                        <p class="price">₹ {{ plant.price }}</p>
+
+                        <a href="{% url 'plant_detail' plant.id %}" class="btn">
+                            View Details
+                        </a>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🌿 FOOTER -->
+    <div class="footer">
+        © 2026 Furniture Store | All Rights Reserved 🪑
+    </div>
+
+</body>
+</html>

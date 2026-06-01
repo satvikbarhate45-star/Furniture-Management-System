@@ -1,0 +1,348 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us | Furniture Store</title>
+
+    <style>
+
+        /* 🌑 GLOBAL */
+        body {
+            margin:0;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background:#111;
+            color:#fff;
+            overflow-x:hidden;
+        }
+
+        .logo {
+            display:flex;
+            align-items:center;
+        }
+
+        .logo img {
+            width:40px;
+            margin-right:10px;
+        }
+
+        .nav a {
+            color:white;
+            margin:0 10px;
+            text-decoration:none;
+            transition:0.3s;
+        }
+
+        .nav a:hover {
+            color:#a9745b;
+        }
+
+        /* 🌿 HERO SECTION (FURNITURE STYLE) */
+        .hero {
+            width:100%;
+            height:500px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            position:relative;
+
+            background:linear-gradient(rgba(10,10,10,0.6), rgba(10,10,10,0.6)),
+            url("{% static 'bb22.webp' %}") no-repeat center center;
+
+            background-size:cover;
+            color:white;
+            animation:fadeInDown 1s ease forwards;
+        }
+
+        .hero h1 {
+            font-size:48px;
+            margin-bottom:10px;
+            color:#a9745b;
+            text-shadow:2px 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            font-size:20px;
+            color:#ddd;
+        }
+
+        /* 🌿 SECTION */
+        .section {
+            padding:60px 20px;
+            max-width:1000px;
+            margin:auto;
+            animation:fadeInUp 1s ease forwards;
+        }
+
+        .section h2,
+        .team h3,
+        .values h3 {
+            color:#a9745b;
+            text-align:center;
+        }
+
+        /* 🌿 ABOUT CONTENT */
+        .about-content {
+            display:flex;
+            gap:40px;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .about-content img {
+            width:400px;
+            max-width:100%;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.6);
+            animation:fadeInLeft 1s ease forwards;
+            border:2px solid #6b3e26;
+        }
+
+        .about-text {
+            flex:1;
+            font-size:18px;
+            line-height:1.7;
+            color:#ccc;
+            animation:fadeInRight 1s ease forwards;
+        }
+
+        /* 🌿 TEAM */
+        .team-members {
+            display:flex;
+            gap:30px;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+
+        .member {
+            width:250px;
+            background:#1c1c1c;
+            border-radius:15px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.6);
+            overflow:hidden;
+            transition:0.3s;
+            border:1px solid #6b3e26;
+            opacity:0;
+            transform:translateY(30px);
+            animation:cardFadeIn 1s ease forwards;
+        }
+
+        .member:hover {
+            transform:translateY(-10px) scale(1.02);
+            border-color:#a9745b;
+        }
+
+        .member img {
+            width:100%;
+            height:250px;
+            object-fit:cover;
+            border-bottom:3px solid #6b3e26;
+        }
+
+        .member-content {
+            padding:20px;
+            text-align:center;
+        }
+
+        .member-content h4 {
+            color:#a9745b;
+        }
+
+        .member-content p {
+            color:#ccc;
+        }
+
+        /* 🌿 VALUES */
+        .values-cards {
+            display:flex;
+            gap:30px;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+
+        .value-card {
+            background:#1c1c1c;
+            width:250px;
+            border-radius:15px;
+            padding:20px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.6);
+            border:1px solid #6b3e26;
+            transition:0.3s;
+            opacity:0;
+            transform:translateY(30px);
+            animation:cardFadeIn 1s ease forwards;
+        }
+
+        .value-card:hover {
+            transform:translateY(-10px) scale(1.02);
+            border-color:#a9745b;
+        }
+
+        .value-card img {
+            width:205px !important;
+            margin-bottom:15px;
+        }
+
+        .value-card h4 {
+            color:#a9745b;
+        }
+
+        .value-card p {
+            color:#ccc;
+            line-height:1.5;
+        }
+
+        /* 🌿 FOOTER */
+        .footer {
+            background:#1c1c1c;
+            color:#a9745b;
+            text-align:center;
+            padding:20px;
+            margin-top:50px;
+            border-top:2px solid #6b3e26;
+        }
+
+        /* 🌿 ANIMATIONS */
+        @keyframes fadeInDown {
+            0% { opacity:0; transform:translateY(-50px); }
+            100% { opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity:0; transform:translateY(50px); }
+            100% { opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+            0% { opacity:0; transform:translateX(-50px); }
+            100% { opacity:1; transform:translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            0% { opacity:0; transform:translateX(50px); }
+            100% { opacity:1; transform:translateX(0); }
+        }
+
+        @keyframes cardFadeIn {
+            0% { opacity:0; transform:translateY(30px);}
+            100% { opacity:1; transform:translateY(0);}
+        }
+
+        /* 🌿 RESPONSIVE */
+        @media (max-width:768px) {
+            .about-content { flex-direction:column; text-align:center; }
+            .about-text { text-align:center; }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    {% include 'header.html' %}
+
+    <!-- 🌿 HERO -->
+    <div class="hero">
+        <div>
+            <h1>🪑 About Our Furniture Store</h1>
+            <p>Premium design, quality furniture & trusted service</p>
+        </div>
+    </div>
+
+    <!-- 🌿 ABOUT -->
+    <div class="section">
+        <h2>Who We Are</h2>
+
+        <div class="about-content">
+
+            <!-- IMAGE PATH NOT CHANGED -->
+            <img src="{% static 'bbb23.jpg' %}" alt="About" style="width:400px;">
+
+            <div class="about-text">
+                <p>We are a premium furniture store offering modern, stylish, and durable furniture solutions for homes and offices.</p>
+
+                <p>Our platform ensures secure ordering, safe delivery, and high-quality craftsmanship for every product.</p>
+
+                <p>We focus on customer satisfaction, interior innovation, and long-lasting furniture designs that enhance your space.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🌿 TEAM -->
+    <div class="section team">
+        <h3>Meet Our Team</h3>
+
+        <div class="team-members">
+
+            <div class="member" style="animation-delay:0.2s;">
+                <img src="{% static 'fff1.webp' %}">
+                <div class="member-content">
+                    <h4>John Doe</h4>
+                    <p>Founder & Designer</p>
+                    
+                </div>
+            </div>
+
+            <div class="member" style="animation-delay:0.4s;">
+                <img src="{% static 'ff22.webp' %}">
+                <div class="member-content">
+                    <h4>Jane Smith</h4>
+                    <p>Interior Expert</p>
+                </div>
+            </div>
+
+            <div class="member" style="animation-delay:0.6s;">
+                <img src="{% static 'ff23.webp' %}">
+                <div class="member-content">
+                    <h4>Michael Lee</h4>
+                    <p>Space Designer</p>
+                </div>
+            </div>
+
+            <div class="member" style="animation-delay:0.8s;">
+                <img src="{% static 'ff24.webp' %}">
+                <div class="member-content">
+                    <h4>Sarah Johnson</h4>
+                    <p>Workshop Trainer</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🌿 VALUES -->
+    <div class="section values">
+        <h3>Our Vision & Security</h3>
+
+        <div class="values-cards">
+
+            <div class="value-card" style="animation-delay:0.2s;">
+                <img src="{% static 'bb24.webp' %}" >
+                <h4>Our Mission</h4>
+                <p>To deliver premium furniture with modern design and long-lasting quality.</p>
+            </div>
+
+            <div class="value-card" style="animation-delay:0.4s;">
+                <img src="{% static 'bb25.webp' %}" >
+                <h4>Secure Platform</h4>
+                <p>Safe ordering, secure payments, and trusted delivery system.</p>
+            </div>
+
+            <div class="value-card" style="animation-delay:0.6s;">
+                <img src="{% static 'bb26.webp' %}">
+                <h4>Quality Assurance</h4>
+                <p>Every product is tested for durability and premium finishing.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🌿 FOOTER -->
+    <div class="footer">
+        <p>© 2026 Furniture Store | All Rights Reserved 🪑</p>
+    </div>
+
+</body>
+</html>

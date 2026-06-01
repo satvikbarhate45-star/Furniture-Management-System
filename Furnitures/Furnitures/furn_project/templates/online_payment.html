@@ -1,0 +1,11 @@
+<h2>Online Payment</h2>
+<p>Booking ID: {{ booking.id }}</p>
+<p>Plant: {{ booking.plant.name }}</p>
+<p>Amount: ₹{{ booking.plant.price }}</p>
+<p>Payment successful! Redirecting to order success...</p>
+
+<script>
+    setTimeout(() => {
+        window.location.href = "{% url 'order_success' booking.id %}";
+    }, 2000); // redirect after 2 seconds
+</script>

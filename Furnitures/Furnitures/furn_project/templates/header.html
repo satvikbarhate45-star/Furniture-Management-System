@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Nursery</title>
+
+<style>
+/* ================= GLOBAL ================= */
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body {
+    background:#111; /* black theme */
+    padding-top:80px;
+}
+
+/* 🌿 HEADER */
+.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 30px;
+    background:#1c1c1c; /* dark brown-black */
+    color:white;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:100;
+    border-bottom:3px solid #6b3e26;
+}
+
+.logo {
+    display:flex;
+    align-items:center;
+}
+
+.logo img {
+    width:40px;
+    margin-right:10px;
+}
+
+/* 🌿 NAV */
+.nav {
+    gap:10px;
+    margin-left:500px;
+    display:flex;
+    align-items:left;
+}
+
+.nav a {
+    color:white;
+    margin:0 10px;
+    text-decoration:none;
+    transition:0.3s;
+    font-weight:500;
+    letter-spacing:0.5px;
+}
+
+.nav a:hover {
+    color:#a9745b; /* wood brown hover */
+}
+
+/* MOBILE MENU TOGGLE */
+.menu-toggle {
+    display:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* 🌿 ICONS */
+.icons {
+    width:10%;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* 🛒 CART ICON */
+.cart {
+    position:relative;
+    cursor:pointer;
+    font-size:20px;
+}
+
+/* 🔢 COUNT */
+.cart span {
+    position:absolute;
+    top:-8px;
+    right:-10px;
+    background:#6b3e26;
+    color:white;
+    border-radius:50%;
+    padding:2px 6px;
+    font-size:12px;
+}
+
+/* 🚪 LOGOUT */
+.logout {
+    background:#6b3e26;
+    color:white;
+    padding:5px 10px;
+    border-radius:5px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.logout:hover {
+    background:#a9745b;
+}
+
+/* 🌿 CART PANEL */
+.cart-panel {
+    position:fixed;
+    top:0;
+    right:-350px;
+    width:350px;
+    height:100%;
+    background:#222; /* dark wood panel */
+    box-shadow:-5px 0 10px rgba(0,0,0,0.6);
+    transition:0.4s;
+    padding:20px;
+    overflow-y:auto;
+    z-index:1000;
+}
+
+.cart-panel.active {
+    right:0;
+}
+
+.cart-panel h3 {
+    text-align:center;
+    color:#a9745b;
+    font-family:'Poppins', sans-serif;
+}
+
+/* 🌿 CART ITEM */
+.cart-item {
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+    border-bottom:1px solid #444;
+    padding-bottom:10px;
+}
+
+.cart-item img {
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:5px;
+}
+
+.cart-item button {
+    background:#6b3e26;
+    color:white;
+    border:none;
+    padding:5px;
+    border-radius:5px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.cart-item button:hover {
+    background:#a9745b;
+}
+
+/* CLOSE BTN */
+.close-btn {
+    float:right;
+    cursor:pointer;
+    color:#ff4d4d;
+    font-size:18px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media screen and (max-width:768px){
+    .nav {
+        display:none;
+        flex-direction:column;
+        background:#1c1c1c;
+        position:absolute;
+        top:60px;
+        right:0;
+        width:200px;
+        padding:10px 0;
+        border-left:2px solid #6b3e26;
+    }
+    .nav.active {
+        display:flex;
+    }
+    .nav a {
+        margin:10px;
+    }
+    .menu-toggle {
+        display:block;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌿 HEADER -->
+<div class="header">
+
+    <!-- LOGO -->
+    <div class="logo">
+        <img src="{% static 'logo.webp' %}" alt="Logo">
+        <h2>Royal Furnish</h2>
+    </div>
+
+    <!-- MOBILE MENU TOGGLE -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <!-- NAV -->
+    <div class="nav">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'user_view_home_plants' %}">View Plants</a>
+        <a href="{% url 'services' %}">Services</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'contact' %}">Contact</a>
+    </div>
+
+    <!-- ICONS -->
+    <div class="icons" style="display:flex; align-items:center; gap:15px; width:15%;">
+
+        <a href="{% url 'user_my_orders' %}" class="logout" style="background:#6b3e26; color:white; width:100px; text-align:center;">My Orders</a>
+
+        <a href="{% url 'logout' %}" class="logout" style="background:#a52a2a; color:white; width:100px; text-align:center;">Logout</a>
+
+    </div>
+
+</div>
+
+<div class="cart-panel" id="cartPanel">
+    <span class="close-btn" onclick="toggleCart()">✖</span>
+    <h3>🪑 Your Cart</h3>
+
+    <div id="cart-items">
+        {% if cart_items %}
+            {% for item in cart_items %}
+            <div class="cart-item" data-id="{{ item.id }}">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                <div>
+                    <p>{{ item.name }}</p>
+                    <button onclick="buyNow('{{ item.name }}')">Buy</button>
+                    <button onclick="removeFromCart('{{ item.id }}')" style="background:#a52a2a; margin-top:5px;">Delete</button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Your cart is empty.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- 🌿 JS (UNCHANGED) -->
+<script>
+let cart = [];
+
+function toggleCart() {
+    document.getElementById("cartPanel").classList.toggle("active");
+}
+
+function toggleMenu() {
+    document.querySelector('.nav').classList.toggle('active');
+}
+
+function buyNow(name) {
+    alert("Proceed to buy: " + name);
+}
+
+function updateCart() {
+    document.getElementById("cart-count").innerText = cart.length;
+    let container = document.getElementById("cart-items");
+    container.innerHTML = "";
+    cart.forEach(item => {
+        container.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div>
+                    <p>${item.name}</p>
+                    <button onclick="buyNow('${item.name}')">Buy</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function removeFromCart(id){
+    fetch("{% url 'remove_from_cart' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({id: id})
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        let container = document.getElementById('cart-items');
+        container.innerHTML = '';
+
+        if(data.cart_items.length === 0){
+            container.innerHTML = '<p>Your cart is empty.</p>';
+        } else {
+            data.cart_items.forEach(item=>{
+                container.innerHTML += `
+                <div class="cart-item" data-id="${item.id}">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div>
+                        <p>${item.name}</p>
+                        <button onclick="buyNow('${item.name}')">Buy</button>
+                        <button onclick="removeFromCart('${item.id}')" style="background:#a52a2a; margin-top:5px;">Delete</button>
+                    </div>
+                </div>
+                `;
+            });
+        }
+    });
+}
+</script>
+
+</body>
+</html>

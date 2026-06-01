@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .container {
+        width: 450px;
+        margin: 50px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(43,29,14,0.25);
+        animation: fadeInUp 1s ease-in-out;
+        border-top: 4px solid #2b1d0e;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2b1d0e;
+        font-family: 'Playfair Display', serif;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border: 1px solid #2b1d0e;
+        box-shadow: 0 0 5px rgba(43,29,14,0.3);
+    }
+
+    .plant-img {
+        display: block;
+        margin: 10px auto;
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 2px solid #2b1d0e;
+        transition: 0.3s;
+    }
+
+    .plant-img:hover {
+        transform: scale(1.05);
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #2b1d0e; /* brown */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #000000; /* black */
+        transform: scale(1.05);
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        color: #2b1d0e;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back:hover {
+        color: #000000;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container">
+    <h2>🪑 Edit Furniture</h2>
+
+    <!-- 🪑 Current Image -->
+    <img src="{{ plant.image.url }}" class="plant-img">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="text" name="plant_id" value="{{ plant.plant_id }}" readonly>
+
+        <input type="text" name="name" value="{{ plant.name }}" required>
+
+        <!-- 🪑 TYPE -->
+        <select name="plant_type">
+            <option>{{ plant.plant_type }}</option>
+            <option>Chair</option>
+            <option>Sofa Set</option>
+            <option>Bed</option>
+            <option>Dining Table</option>
+            <option>Office Table</option>
+            <option>Study Table</option>
+            <option>Bookshelf</option>
+            <option>TV Unit</option>
+            <option>Shoe Rack</option>
+            <option>Cabinet</option>
+        </select>
+
+        <textarea name="info">{{ plant.info }}</textarea>
+
+        <input type="number" name="price" value="{{ plant.price }}" required>
+        <input type="number" name="quantity" value="{{ plant.quantity }}" required>
+
+        <!-- 🪑 IMAGE -->
+        <input type="file" name="image">
+
+        <!-- 🪑 MATERIAL -->
+        <select name="growth">
+            <option>{{ plant.growth }}</option>
+            <option>Wood</option>
+            <option>Metal</option>
+            <option>Plastic</option>
+            <option>Leather</option>
+            <option>Engineered Wood</option>
+        </select>
+
+        <!-- 🪑 QUALITY -->
+        <select name="quality">
+            <option>{{ plant.quality }}</option>
+            <option>Premium</option>
+            <option>Standard</option>
+            <option>Luxury</option>
+            <option>Imported</option>
+            <option>Handmade</option>
+        </select>
+
+        <button type="submit">Update Furniture</button>
+    </form>
+
+    <a href="{% url 'admin_page' %}" class="back">← Back to Dashboard</a>
+</div>
+
+{% endblock %}

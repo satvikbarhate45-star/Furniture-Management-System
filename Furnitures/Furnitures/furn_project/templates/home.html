@@ -1,0 +1,274 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Furniture Home</title>
+
+<style>
+
+/* 🌑 GLOBAL */
+body {
+    margin:0;
+    font-family:'Poppins', 'Segoe UI', sans-serif;
+    background:#111;
+    color:white;
+}
+
+/* 🪑 HEADER */
+.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background:#1c1c1c;
+    color:white;
+    border-bottom:3px solid #6b3e26;
+}
+
+.logo {
+    display:flex;
+    align-items:center;
+}
+
+.logo img {
+    width:40px;
+    margin-right:10px;
+}
+
+.nav a {
+    color:white;
+    margin:0 10px;
+    text-decoration:none;
+    transition:0.3s;
+    font-weight:500;
+}
+
+.nav a:hover {
+    color:#a9745b;
+}
+
+/* 🪑 HERO SLIDER (FIXED) */
+.slider {
+    width:100%;
+    height:470px;
+    overflow:hidden;
+    border-bottom:3px solid #6b3e26;
+}
+
+.slides {
+    display:flex;
+    width:100%;
+    transition: transform 1s ease-in-out;
+}
+
+.slides img {
+    width:100%;
+    height:470px;
+    object-fit:cover;
+    flex-shrink:0;   /* IMPORTANT FIX */
+}
+
+/* 🪑 SECTION */
+.section {
+    padding:40px;
+    text-align:center;
+}
+
+.section h2 {
+    color:#a9745b;
+    font-weight:600;
+}
+
+/* 🪑 CARDS */
+.cards {
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.card {
+    width:220px;
+    background:#1c1c1c;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+    overflow:hidden;
+    transition:0.3s;
+    border:1px solid #6b3e26;
+}
+
+.card:hover {
+    transform:translateY(-8px);
+}
+
+.card img {
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-bottom:3px solid #6b3e26;
+}
+
+.card h3 {
+    color:#ffffff;
+    margin:10px 0;
+}
+
+.card p {
+    margin:5px;
+    color:#ccc;
+}
+
+/* 🪑 BLOG */
+.blogs {
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.blog {
+    width:250px;
+    background:#1c1c1c;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.6);
+    overflow:hidden;
+    border:1px solid #6b3e26;
+}
+
+.blog img {
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.blog h4 {
+    padding:10px;
+    color:#a9745b;
+}
+
+/* 🪑 FOOTER */
+.footer {
+    background:#1c1c1c;
+    color:#a9745b;
+    text-align:center;
+    padding:15px;
+    margin-top:30px;
+    border-top:2px solid #6b3e26;
+}
+
+</style>
+</head>
+
+<body>
+
+{% include 'header.html' %}
+
+<!-- 🪑 HERO SLIDER -->
+<div class="slider">
+    <div class="slides" id="slides">
+        <img src="{% static 'b21.jpg' %}">
+        <img src="{% static 'bb2.jpg' %}">
+        <img src="{% static 'bb3.jpg' %}">
+        <img src="{% static 'bb4.jpg' %}">
+    </div>
+</div>
+
+<!-- 🪑 PRODUCTS -->
+<div class="section">
+    <h2>🪑 Featured Furniture</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <img src="{% static 'bb5.jpeg' %}">
+            <h3>Luxury Sofa</h3>
+            <p>Quality: Premium</p>
+            <p>Type: Living Room</p>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'bb6.jpeg' %}">
+            <h3>Wooden Chair</h3>
+            <p>Quality: Solid Wood</p>
+            <p>Type: Office</p>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'bb7.jpg' %}">
+            <h3>Dining Table</h3>
+            <p>Quality: Strong Build</p>
+            <p>Type: Dining</p>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'bb8.jpg' %}">
+            <h3>King Bed</h3>
+            <p>Quality: Premium Comfort</p>
+            <p>Type: Bedroom</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🪑 BLOG -->
+<div class="section">
+    <h2>🪑 Furniture Tips</h2>
+
+    <div class="blogs">
+
+        <div class="blog">
+            <img src="{% static 'bb9.webp' %}">
+            <h4>How to maintain wooden furniture</h4>
+        </div>
+
+        <div class="blog">
+            <img src="{% static 'bb13.webp' %}">
+            <h4>Modern home design ideas</h4>
+        </div>
+
+        <div class="blog">
+            <img src="{% static 'bb10.webp' %}">
+            <h4>Office setup tips</h4>
+        </div>
+
+        <div class="blog">
+            <img src="{% static 'bb11.jpg' %}">
+            <h4>Interior decoration guide</h4>
+        </div>
+
+        <div class="blog">
+            <img src="{% static 'bb12.webp' %}">
+            <h4>Space saving furniture ideas</h4>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🪑 FOOTER -->
+<div class="footer">
+    <p>© 2026 Furniture Store | All Rights Reserved 🪑</p>
+</div>
+
+<!-- ✅ SLIDER JS (FIXED) -->
+<script>
+let index = 0;
+const slides = document.getElementById("slides");
+const totalSlides = slides.children.length;
+
+function moveSlide() {
+    index++;
+
+    if (index >= totalSlides) {
+        index = 0;
+    }
+
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+// ⏱️ every 5 seconds
+setInterval(moveSlide, 3500);
+</script>
+
+</body>
+</html>

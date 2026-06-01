@@ -1,0 +1,155 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin | User Issues</title>
+    <style>
+        /* 🌿 GLOBAL */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4fff4;
+            margin: 0;
+            padding-top: 80px;
+        }
+
+        /* 🌿 HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: green;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            z-index: 100;
+        }
+        .header h2 { margin: 0; }
+        .header a {
+            color: green;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .header a:hover { background: #e0ffe0; }
+
+        /* 🌿 CONTAINER */
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: green;
+            margin-bottom: 30px;
+        }
+
+        /* 🌿 TABLE STYLING */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0,128,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeIn 1s ease;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: green;
+            color: white;
+            text-align: center;
+        }
+        tr:hover {
+            background: #e0ffe0;
+        }
+
+        /* 🌿 RESPONSIVE */
+        @media (max-width:768px) {
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width:480px) {
+            table, thead, tbody, th, td, tr { display: block; }
+            th { display: none; }
+            td {
+                position: relative;
+                padding-left: 50%;
+                text-align: left;
+            }
+            td::before {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                width: 45%;
+                white-space: nowrap;
+                font-weight: bold;
+                color: green;
+            }
+            td:nth-of-type(1)::before { content: "Name"; }
+            td:nth-of-type(2)::before { content: "Email"; }
+            td:nth-of-type(3)::before { content: "Message"; }
+        }
+
+        /* 🌿 ANIMATION */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h2>Admin Dashboard</h2>
+    <div>
+        <a href="{% url 'admin_page' %}">Back to Dashboard</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>📞 User Issues / Contact Messages</h1>
+
+    {% if issues %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ issue.name }}</td>
+                <td>{{ issue.email }}</td>
+                <td>{{ issue.message }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p style="text-align:center; font-size:18px; color:green;">No user issues submitted yet.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

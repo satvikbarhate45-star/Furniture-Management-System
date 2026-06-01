@@ -1,0 +1,253 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Furniture Services</title>
+
+    <style>
+
+        /* 🌑 GLOBAL */
+        body {
+            margin:0;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background:#111;
+            color:#fff;
+            overflow-x:hidden;
+        }
+
+        .logo {
+            display:flex;
+            align-items:center;
+        }
+
+        .logo img {
+            width:40px;
+            margin-right:10px;
+        }
+
+        .nav a {
+            color:white;
+            margin:0 10px;
+            text-decoration:none;
+            transition:0.3s;
+        }
+
+        .nav a:hover {
+            color:#a9745b;
+        }
+
+        /* 🌿 HERO SECTION (FURNITURE STYLE) */
+        .hero {
+            width:100%;
+            height:600px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            position:relative;
+
+            background:linear-gradient(rgba(10,10,10,0.6), rgba(10,10,10,0.6)),
+            url("{% static 'bb14.jpg' %}") no-repeat center center;
+
+            background-size:cover;
+            color:white;
+            animation:fadeInDown 1s ease forwards;
+        }
+
+        .hero h1 {
+            font-size:48px;
+            margin-bottom:10px;
+            color:#a9745b;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            font-size:20px;
+            margin-bottom:0;
+            color:#ddd;
+        }
+
+        /* 🌿 SECTION */
+        .section {
+            padding:50px 20px;
+            text-align:center;
+        }
+
+        .section h2 {
+            color:#a9745b;
+            margin-bottom:40px;
+            font-size:36px;
+            animation:fadeInUp 1s ease forwards;
+        }
+
+        .cards {
+            display:flex;
+            gap:30px;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+
+        /* 🌟 CARD (FURNITURE STYLE) */
+        .card {
+            width:250px;
+            background:#1c1c1c;
+            border-radius:15px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.6);
+            overflow:hidden;
+            transition:0.3s;
+            border:1px solid #6b3e26;
+            opacity:0;
+            transform: translateY(30px);
+            animation:cardFadeIn 1s ease forwards;
+        }
+
+        .card:hover {
+            transform:translateY(-10px) scale(1.02);
+            box-shadow:0 15px 35px rgba(0,0,0,0.8);
+            border-color:#a9745b;
+        }
+
+        .card img {
+            width:100%;
+            height:180px;
+            object-fit:cover;
+            border-bottom:3px solid #6b3e26;
+        }
+
+        .card-content {
+            padding:20px;
+        }
+
+        .card-content h3 {
+            color:#a9745b;
+            margin-bottom:10px;
+            font-size:22px;
+        }
+
+        .card-content p {
+            font-size:16px;
+            color:#ccc;
+            line-height:1.5;
+            text-align:left;
+        }
+
+        /* 🌿 FOOTER */
+        .footer {
+            background:#1c1c1c;
+            color:#a9745b;
+            text-align:center;
+            padding:20px;
+            margin-top:50px;
+            border-top:2px solid #6b3e26;
+        }
+
+        /* 🌿 ANIMATIONS (UNCHANGED) */
+        @keyframes fadeInDown {
+            0% { opacity:0; transform: translateY(-50px); }
+            100% { opacity:1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity:0; transform: translateY(50px); }
+            100% { opacity:1; transform: translateY(0); }
+        }
+
+        @keyframes cardFadeIn {
+            0% { opacity:0; transform: translateY(30px);}
+            100% { opacity:1; transform: translateY(0);}
+        }
+
+        /* 🌿 RESPONSIVE */
+        @media (max-width:768px) {
+            .card { width:45%; }
+            .hero h1 { font-size:36px; }
+            .hero p { font-size:18px; }
+        }
+
+        @media (max-width:480px) {
+            .card { width:90%; }
+            .hero { height:300px; }
+            .hero h1 { font-size:28px; }
+            .hero p { font-size:16px; }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    {% include 'header.html' %}
+
+    <!-- 🌿 HERO SECTION -->
+    <div class="hero">
+        <div>
+            <h1>🪑 Our Furniture Services</h1>
+            <p>Premium furniture design, delivery & consultation services</p>
+        </div>
+    </div>
+
+    <!-- 🌿 SERVICE CARDS -->
+    <div class="section">
+        <h2>🪑 What We Offer</h2>
+
+        <div class="cards">
+
+            <div class="card" style="animation-delay:0.2s;">
+                <img src="{% static 'bb15.webp' %}" alt="Delivery">
+                <div class="card-content">
+                    <h3>Furniture Delivery</h3>
+                    <p>Safe and fast delivery of premium furniture with protective packaging.</p>
+                </div>
+            </div>
+
+            <div class="card" style="animation-delay:0.4s;">
+                <img src="{% static 'bb16.jpg' %}" alt="Care">
+                <div class="card-content">
+                    <h3>Maintenance Service</h3>
+                    <p>We help maintain your furniture quality with expert care and polishing tips.</p>
+                </div>
+            </div>
+
+            <div class="card" style="animation-delay:0.6s;">
+                <img src="{% static 'bb17.webp' %}" alt="Tools">
+                <div class="card-content">
+                    <h3>Installation Tools</h3>
+                    <p>High-quality tools for easy furniture installation and setup.</p>
+                </div>
+            </div>
+
+            <div class="card" style="animation-delay:0.8s;">
+                <img src="{% static 'bb18.webp' %}" alt="Consultation">
+                <div class="card-content">
+                    <h3>Interior Consultation</h3>
+                    <p>Expert advice for home and office furniture layout and design.</p>
+                </div>
+            </div>
+
+            <div class="card" style="animation-delay:1s;">
+                <img src="{% static 'bb19.png' %}" alt="Design">
+                <div class="card-content">
+                    <h3>Space Design</h3>
+                    <p>We design modern furniture layouts for homes, offices, and shops.</p>
+                </div>
+            </div>
+
+            <div class="card" style="animation-delay:1.2s;">
+                <img src="{% static 'bb20.jpg' %}" alt="Workshops">
+                <div class="card-content">
+                    <h3>Workshops</h3>
+                    <p>Learn furniture design trends, setup ideas, and interior styling.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🌿 FOOTER -->
+    <div class="footer">
+        <p>© 2026 Furniture Store | All Rights Reserved 🪑</p>
+    </div>
+
+</body>
+</html>

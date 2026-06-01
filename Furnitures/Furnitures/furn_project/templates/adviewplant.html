@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .view-container {
+        width: 500px;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(43,29,14,0.25);
+        animation: fadeInUp 1s ease-in-out;
+        border-top: 4px solid #2b1d0e;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2b1d0e;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .plant-img {
+        display: block;
+        margin: 10px auto;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #2b1d0e;
+        transition: 0.3s;
+    }
+
+    .plant-img:hover {
+        transform: scale(1.05);
+    }
+
+    .detail {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #2b1d0e;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        text-align: center;
+        background: #2b1d0e;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #000000;
+        transform: scale(1.05);
+    }
+
+    /* 🪑 ANIMATION */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="view-container">
+    <h2>🪑 Furniture Details</h2>
+
+    <img src="{{ plant.image.url }}" class="plant-img">
+
+    <div class="detail"><span class="label">Furniture ID:</span> {{ plant.plant_id }}</div>
+    <div class="detail"><span class="label">Name:</span> {{ plant.name }}</div>
+    <div class="detail"><span class="label">Type:</span> {{ plant.plant_type }}</div>
+    <div class="detail"><span class="label">Material:</span> {{ plant.growth }}</div>
+    <div class="detail"><span class="label">Quality:</span> {{ plant.quality }}</div>
+    <div class="detail"><span class="label">Price:</span> ₹{{ plant.price }}</div>
+    <div class="detail"><span class="label">Quantity:</span> {{ plant.quantity }}</div>
+    <div class="detail"><span class="label">Description:</span> {{ plant.info }}</div>
+
+    <a href="{% url 'admin_page' %}" class="btn">← Back to Dashboard</a>
+</div>
+
+{% endblock %}
